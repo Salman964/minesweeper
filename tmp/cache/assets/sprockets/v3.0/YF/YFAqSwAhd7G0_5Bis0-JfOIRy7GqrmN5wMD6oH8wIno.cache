@@ -1,0 +1,39 @@
+I"a(function() {
+  var EnableMinesField;
+
+  $(document).on('keyup', '.mines, .width, .height', function(e) {
+    var max_mines;
+    max_mines = parseInt($('.width').val()) * parseInt($('.height').val());
+    if (parseInt($('.mines').val()) > max_mines) {
+      $('.mines-error').removeClass('hidden');
+      return $('.submit-btn').attr('disabled', true);
+    } else {
+      $('.mines-error').addClass('hidden');
+      return $('.submit-btn').attr('disabled', false);
+    }
+  });
+
+  $(document).on('click', '.mines', function(e) {
+    if ($('.width').val() === '' || $('.height').val() === '') {
+      $('.mines').css('pointer-events', 'none');
+      return $('.mines-disable').removeClass('hidden');
+    }
+  });
+
+  $(document).on('focusout', '.height', function(e) {
+    return EnableMinesField();
+  });
+
+  $(document).on('focusout', '.width', function(e) {
+    return EnableMinesField();
+  });
+
+  EnableMinesField = function() {
+    if ($('.width').val() !== '' && $('.height').val() !== '') {
+      $('.mines').css('pointer-events', 'all');
+      return $('.mines-disable').addClass('hidden');
+    }
+  };
+
+}).call(this);
+:ET
